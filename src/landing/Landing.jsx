@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Nav from './Nav.jsx';
 import Heroe from './Heroe.jsx';
 import Prueba4D from './Prueba4D.jsx';
+import Herramientas4D from './Herramientas4D.jsx';
 import ControlObra from './ControlObra.jsx';
 import Terreno from './Terreno.jsx';
 import Agente from './Agente.jsx';
@@ -33,6 +34,7 @@ export default function Landing() {
         <Heroe reducido={reducido} />
         <Prueba />
         <Prueba4D />
+        <Herramientas4D />
         <ControlObra />
         <Agente />
         <Terreno />
