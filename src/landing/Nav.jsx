@@ -11,9 +11,10 @@ import { useEffect, useState } from 'react';
 
 export const ENLACES = [
   { id: 'prueba', texto: 'Pruébalo' },
-  { id: 'control', texto: 'Control de obra' },
+  { id: 'control', texto: 'La suite' },
+  { id: 'agente', texto: 'Agente' },
   { id: 'terreno', texto: 'Terreno' },
-  { id: 'como-funciona', texto: 'Cómo funciona' },
+  { id: 'por-que', texto: 'Por qué' },
 ];
 
 function useSeccionActual(ids) {

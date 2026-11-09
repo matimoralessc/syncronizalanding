@@ -473,6 +473,8 @@ export function Pie() {
                 <li><a className="text-texto-2 transition-colors hover:text-white" href="#costos">Costos</a></li>
                 <li><a className="text-texto-2 transition-colors hover:text-white" href="#hormigon">Hormigón</a></li>
                 <li><a className="text-texto-2 transition-colors hover:text-white" href="#last-planner">Last Planner</a></li>
+                <li><a className="text-texto-2 transition-colors hover:text-white" href="#salud">Salud de obra</a></li>
+                <li><a className="text-texto-2 transition-colors hover:text-white" href="#agente">Agente Syncroniza</a></li>
                 <li><a className="text-texto-2 transition-colors hover:text-white" href="#terreno">Canal de terreno</a></li>
               </ul>
             </div>

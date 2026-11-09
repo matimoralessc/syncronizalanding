@@ -109,3 +109,7 @@
 .rango-4d::-moz-range-track { height: 4px; border-radius: 99px; background: rgba(255,255,255,.18); }
 .rango-4d::-webkit-slider-thumb { -webkit-appearance: none; margin-top: -8px; height: 20px; width: 20px; border-radius: 99px; background: #37B6FF; box-shadow: 0 0 0 6px rgba(55,182,255,.18); }
 .rango-4d::-moz-range-thumb { height: 20px; width: 20px; border: 0; border-radius: 99px; background: #37B6FF; box-shadow: 0 0 0 6px rgba(55,182,255,.18); }
+
+/* Filas que se deslizan de lado sin barra visible (preguntas del agente, pestañas). */
+.sin-barra { scrollbar-width: none; }
+.sin-barra::-webkit-scrollbar { display: none; }

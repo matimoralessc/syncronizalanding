@@ -154,16 +154,16 @@ export default function Heroe({ reducido }) {
 
         {/* ---- Portada: lo que se lee antes de tocar nada ---------------- */}
         <div ref={portadaRef} className="sombra-texto absolute inset-x-0 top-0 z-10 px-6 pt-24 sm:px-12 lg:px-16">
-          <p className="etiqueta text-iso-sky">Syncroniza 4D · Obra Panorámica, Constructora Inspira</p>
+          <p className="etiqueta text-iso-sky">Plataforma de control de proyectos · Obra Panorámica, Constructora Inspira</p>
           <h1 className="titulo-degradado mt-6 max-w-[680px] text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl">
             Mira tu obra
             <br />
             antes de construirla.
           </h1>
           <p className="mt-6 max-w-[680px] text-lg text-texto-2">
-            Syncroniza conecta tu programa de MS Project con el modelo BIM y con lo que el
-            terreno reporta por WhatsApp. Cada semana ves qué se hormigonó, qué viene y dónde
-            vas atrasado.
+            Programar, controlar y reportar la obra desde un solo lugar: BIM 4D, Last Planner,
+            control por WhatsApp y la app móvil de salud de obra, trabajando sobre la misma base
+            de datos en tiempo real.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <a href="#contacto" className="boton-principal">
