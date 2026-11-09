@@ -10,11 +10,10 @@ import { useEffect, useState } from 'react';
 // que sumarle trabajo por cada pixel.
 
 export const ENLACES = [
-  { id: 'cuatro-d', texto: '4D' },
-  { id: 'avance', texto: 'Avance' },
-  { id: 'costos', texto: 'Costos' },
-  { id: 'last-planner', texto: 'Last Planner' },
+  { id: 'prueba', texto: 'Pruébalo' },
+  { id: 'control', texto: 'Control de obra' },
   { id: 'terreno', texto: 'Terreno' },
+  { id: 'como-funciona', texto: 'Cómo funciona' },
 ];
 
 function useSeccionActual(ids) {

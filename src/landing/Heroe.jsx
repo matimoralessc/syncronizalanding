@@ -121,9 +121,10 @@ export default function Heroe({ reducido }) {
   const iInicial = reducido ? datos.dias.length - 1 : 0;
 
   return (
-    // 400vh: tres pantallas de recorrido para 420 cuadros (≈6 px por cuadro).
+    // 250vh (9-nov-2026, la página se hacía larga): pantalla y media de
+    // recorrido para 420 cuadros.
     // Una rueda de mouse avanza medio segundo de obra por muesca.
-    <section ref={seccionRef} id="inicio" aria-label="Panorámica en el visor 4D" className={reducido ? 'relative' : 'relative h-[400vh]'}>
+    <section ref={seccionRef} id="inicio" aria-label="Panorámica en el visor 4D" className={reducido ? 'relative' : 'relative h-[250vh]'}>
       <div className="sticky top-0 h-[100svh] w-full overflow-hidden bg-negro">
         {/* Movimiento reducido: ni video ni scrub. Se muestra la obra terminada. */}
         <picture>
@@ -169,7 +170,7 @@ export default function Heroe({ reducido }) {
               Agenda una demo de 30 minutos
               <ArrowRight size={18} weight="bold" aria-hidden="true" />
             </a>
-            <a href="#obras" className="boton-secundario">Ver la plataforma</a>
+            <a href="#prueba" className="boton-secundario">Pruébalo tú</a>
           </div>
           {/* La pista se apaga apenas el visitante empieza a bajar. */}
           {!reducido && (

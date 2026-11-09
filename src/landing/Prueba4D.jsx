@@ -165,7 +165,7 @@ export default function Prueba4D() {
         distancia0 = Math.hypot(a.x - b.x, a.y - b.y);
         R0 = e.R;
       }
-      if (ev.pointerType === 'mouse') cont.setPointerCapture(ev.pointerId);
+      if (ev.pointerType === 'mouse') { try { cont.setPointerCapture(ev.pointerId); } catch { /* sin puntero activo */ } }
     };
     const mover = (ev) => {
       const prev = punteros.get(ev.pointerId);
