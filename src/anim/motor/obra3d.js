@@ -304,6 +304,7 @@ export function crearObra3D(contenedor, cfg) {
   }
   redimensionar();
 
+  const idxHechos = [], idxEnCurso = [];
   const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), pos = new THREE.Vector3(), esc = new THREE.Vector3();
   // El destello de lo que se termina: blanco por defecto; el film usa el azul de la marca.
   const color = new THREE.Color(), blanco = new THREE.Color(cfg.destello ?? 0xffffff);
@@ -322,6 +323,7 @@ export function crearObra3D(contenedor, cfg) {
     }
 
     let nh = 0, nc = 0, nv = 0, m3 = 0;
+    idxHechos.length = 0; idxEnCurso.length = 0;
     const sectoresEnCurso = new Set();
     const porEdificio = new Map(); // nombre → { techo, nivelEnCurso, nivelHecho }
     for (const e of elementos) {
@@ -336,12 +338,14 @@ export function crearObra3D(contenedor, cfg) {
         pos.set(x, crece ? y - ch / 2 + hh / 2 : y, z);
         esc.set(cw, hh, cd);
         m4.compose(pos, q, esc);
+        idxEnCurso[nc] = e;
         enCurso.setMatrixAt(nc++, m4);
         if (e.tipo !== 'vidrio') { sectoresEnCurso.add(e.ciclo); est.nivelEnCurso = e.nivel; }
       } else {
         pos.set(x, y, z); esc.set(cw, ch, cd);
         m4.compose(pos, q, esc);
         if (e.tipo === 'vidrio') { vidrios.setMatrixAt(nv++, m4); continue; }
+        idxHechos[nh] = e;
         hechos.setMatrixAt(nh, m4);
         // Destello lineal por defecto; 'sostenido' queda pleno la mitad del
         // tiempo y después vuelve rápido al color del ciclo (sin tonos barrosos).
@@ -408,6 +412,20 @@ export function crearObra3D(contenedor, cfg) {
   }
 
   let ultimos = { fecha: '', kpis: [] };
+  // Qué elemento hay bajo un punto de la pantalla (pixeles CSS del contenedor),
+  // con la cámara del último cuadro: lo usa el 4D interactivo de la landing.
+  const rayo = new THREE.Raycaster(), ndc = new THREE.Vector2();
+  function elegir(px, py) {
+    const w = contenedor.clientWidth, h = contenedor.clientHeight;
+    ndc.set((px / w) * 2 - 1, -(py / h) * 2 + 1);
+    rayo.setFromCamera(ndc, camara);
+    const tocados = rayo.intersectObjects([hechos, enCurso], false);
+    for (const t of tocados) {
+      const lista = t.object === hechos ? idxHechos : idxEnCurso;
+      if (t.instanceId != null && lista[t.instanceId]) return lista[t.instanceId];
+    }
+    return null;
+  }
   function destruir() { renderer.dispose(); contenedor.innerHTML = ''; }
   // Dónde cae en pantalla (pixeles CSS) una caja del mundo, con la cámara del
   // último cuadro: el film la usa para cerrar la ola azul sobre la losa.
@@ -422,7 +440,7 @@ export function crearObra3D(contenedor, cfg) {
     }
     return { x0, x1, y0, y1 };
   }
-  return { fijarProgreso, redimensionar, destruir, meses, proyectarCaja, indicadores: () => ultimos };
+  return { fijarProgreso, redimensionar, destruir, meses, proyectarCaja, elegir, indicadores: () => ultimos };
 }
 
 export { num };

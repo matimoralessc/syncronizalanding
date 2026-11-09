@@ -102,3 +102,10 @@
 .sombra-texto .titulo-degradado { text-shadow: none; filter: drop-shadow(0 2px 16px rgba(0, 0, 0, 0.9)); }
 /* El botón blanco ya tiene su contraste: la sombra le ensuciaba la letra. */
 .sombra-texto .boton-principal { text-shadow: none; }
+
+/* La barra de semanas del 4D interactivo (Prueba4D.jsx). */
+.rango-4d { -webkit-appearance: none; appearance: none; background: transparent; }
+.rango-4d::-webkit-slider-runnable-track { height: 4px; border-radius: 99px; background: rgba(255,255,255,.18); }
+.rango-4d::-moz-range-track { height: 4px; border-radius: 99px; background: rgba(255,255,255,.18); }
+.rango-4d::-webkit-slider-thumb { -webkit-appearance: none; margin-top: -8px; height: 20px; width: 20px; border-radius: 99px; background: #37B6FF; box-shadow: 0 0 0 6px rgba(55,182,255,.18); }
+.rango-4d::-moz-range-thumb { height: 20px; width: 20px; border: 0; border-radius: 99px; background: #37B6FF; box-shadow: 0 0 0 6px rgba(55,182,255,.18); }

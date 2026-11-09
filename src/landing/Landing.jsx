@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Nav from './Nav.jsx';
 import Heroe from './Heroe.jsx';
 import Capitulo from './Capitulo.jsx';
+import Prueba4D from './Prueba4D.jsx';
 import { FraseCentral, Contacto, Pie } from './Secciones.jsx';
 
 // La landing es el 4D y las animaciones (9-nov-2026, Matías: «ármala con el
@@ -63,6 +64,7 @@ export default function Landing() {
       <Nav />
       <main id="contenido" tabIndex={-1} className="outline-none">
         <Heroe reducido={reducido} />
+        <Prueba4D />
         <FraseCentral />
         {CAPITULOS.map((c) => <Capitulo key={c.id} {...c} reducido={reducido} />)}
         <Contacto />
