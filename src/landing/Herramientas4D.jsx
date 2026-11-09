@@ -10,23 +10,23 @@ import VideoBucle from './VideoBucle.jsx';
 const HERRAMIENTAS = [
   {
     id: 'hormigon-4d', video: 'hormigon', pestaña: 'Curva S de hormigón',
-    titulo: 'Lo planificado contra lo que de verdad llegó.',
-    texto: 'Los m³ del modelo, semana a semana, contra las guías validadas. Se marca lo que pasa del límite semanal y cada semana se abre en sus ciclos, día por día.',
+    titulo: 'Hormigón programado versus colocado.',
+    texto: 'Volumen semanal del modelo frente a las guías de despacho validadas, con control de límite semanal y desglose por ciclo y día.',
   },
   {
     id: 'last-planner-4d', video: 'last-planner', pestaña: 'Last Planner',
-    titulo: 'La semana se planifica sobre el modelo.',
-    texto: 'Cada frente con sus elementos, repartido por día. Hormigón, moldaje y fierro de la semana salen solos para la reunión.',
+    titulo: 'Planificación semanal sobre el modelo.',
+    texto: 'Frentes asignados por día, con cubicación automática de hormigón, moldaje y fierro para la reunión semanal.',
   },
   {
     id: 'observaciones-4d', video: 'observaciones', pestaña: 'Observaciones',
-    titulo: 'Una nota en el modelo pasa a restricción.',
-    texto: 'Se anota sobre la vista, con fotos y responsable. Con un clic queda como restricción del Last Planner, con su compromiso.',
+    titulo: 'De la observación a la restricción.',
+    texto: 'Registro georreferenciado en el modelo, con fotografías y responsable, convertible en restricción del Last Planner.',
   },
   {
     id: 'cubicacion-4d', video: 'cubicacion', pestaña: 'Cubicación',
-    titulo: 'Elige una zona y suma hormigón, moldaje y fierro.',
-    texto: 'Con un arrastre sobre el modelo se toman cientos de elementos y salen los totales por categoría: fundaciones, losas, muros, vigas y columnas.',
+    titulo: 'Cubicación por selección.',
+    texto: 'Selección por área sobre el modelo, con totales de hormigón, moldaje y fierro por categoría de elemento.',
   },
 ];
 
@@ -36,12 +36,12 @@ export default function Herramientas4D() {
   return (
     <section id="herramientas" aria-label="Herramientas de Syncroniza 4D" className="border-t border-white/10 bg-negro">
       <div className="mx-auto max-w-7xl px-5 py-24 sm:px-12 sm:py-28">
-        <Revelar as="p" className="font-mono text-xs font-medium uppercase tracking-[0.2em] text-iso-sky">Syncroniza 4D · Panorámica</Revelar>
+        <Revelar as="p" className="font-mono text-xs font-medium uppercase tracking-[0.2em] text-iso-sky">Syncroniza 4D · Obra Panorámica</Revelar>
         <Revelar as="h2" retraso={80} className="mt-4 max-w-3xl text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-          El 4D de verdad, con una obra de verdad.
+          Herramientas del visor, sobre una obra en ejecución.
         </Revelar>
         <Revelar as="p" retraso={140} className="mt-5 max-w-2xl text-lg leading-relaxed text-white/60">
-          Grabado en el visor con el programa, el modelo y los datos reales de Panorámica.
+          Registros del visor con el programa, el modelo y los datos de Panorámica.
         </Revelar>
 
         <div role="tablist" aria-label="Herramientas del 4D" className="sin-barra -mx-5 mt-10 flex gap-2 overflow-x-auto px-5 pb-1 sm:mx-0 sm:px-0">

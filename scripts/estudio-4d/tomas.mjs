@@ -8,7 +8,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-export const CENTRO = [-32.5, 10, 45.7];
+// Remedido el 9-nov-2026 con los modelos actuales (Calculo Rev0002): x −42..14,
+// y −1..24, z −97..14. El de octubre (otros modelos) era [−32.5, 10, 45.7].
+export const CENTRO = [-14, 10, -41.5];
 
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -41,7 +43,8 @@ export function diaPorAvance(u, desde = 55, hasta = 222, calendario = 0.2) {
 
 // Modelos que en la toma general se ven como líneas y puntos (cañerías): se
 // apagan solo durante la toma, igual que con el ojo del panel de modelos.
-const CANERIAS = ['Alcantarillado', 'AALL Edificio'];
+// Desde nov-2026 también eléctrico y telecomunicaciones (modelos nuevos de Panorámica).
+const CANERIAS = ['Alcantarillado', 'AALL Edificio', 'Electrico', 'Telecomunic'];
 async function apagarCanerias(page) {
   await page.evaluate((nombres) => {
     for (const m of window.ctx.fragments.list.values()) m.object.visible = !nombres.some((n) => m.modelId.includes(n));

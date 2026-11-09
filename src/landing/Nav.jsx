@@ -10,11 +10,11 @@ import { useEffect, useState } from 'react';
 // que sumarle trabajo por cada pixel.
 
 export const ENLACES = [
-  { id: 'prueba', texto: 'Pruébalo' },
+  { id: 'prueba', texto: 'Simulación 4D' },
+  { id: 'herramientas', texto: 'Herramientas' },
   { id: 'control', texto: 'La suite' },
   { id: 'agente', texto: 'Agente' },
   { id: 'terreno', texto: 'Terreno' },
-  { id: 'por-que', texto: 'Por qué' },
 ];
 
 function useSeccionActual(ids) {
@@ -90,7 +90,7 @@ export default function Nav() {
             href="#contacto"
             className="hidden rounded-full bg-white px-3 py-2 text-sm font-semibold text-black transition-transform duration-300 ease-fluido hover:-translate-y-0.5 active:scale-[0.98] sm:inline-flex"
           >
-            Agenda una demo
+            Solicitar demostración
           </a>
 
           {/* Hamburguesa → X: las líneas giran y se cruzan, nunca desaparecen. */}
@@ -115,7 +115,7 @@ export default function Nav() {
         aria-hidden={!abierto}
       >
         <ul className="space-y-4">
-          {[...ENLACES, { id: 'contacto', texto: 'Agenda una demo' }].map((e, i) => (
+          {[...ENLACES, { id: 'contacto', texto: 'Solicitar demostración' }].map((e, i) => (
             <li key={e.id} className="overflow-hidden">
               <a
                 href={`#${e.id}`}

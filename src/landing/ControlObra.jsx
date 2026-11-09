@@ -10,43 +10,43 @@ import Reproductor from './Reproductor.jsx';
 const MODULOS = [
   {
     id: 'avance', escena: 'curva-s', pestaña: 'Avance', segundos: 4.5,
-    titulo: 'Programado contra real, sin esperar el informe del mes.',
+    titulo: 'Control de avance y valor ganado.',
     puntos: [
-      'La toma de avance de cada semana dibuja la Curva S y el SPI apenas se registra.',
-      'La brecha se mide en puntos y en semanas, cuando todavía se puede corregir.',
+      'Curva S programada versus real, actualizada con cada corte semanal.',
+      'SPI y desviación expresada en puntos y en semanas de atraso.',
     ],
   },
   {
     id: 'costos', escena: 'costos', pestaña: 'Costos', segundos: 4,
-    titulo: 'Cada peso contra su presupuesto.',
+    titulo: 'Control de costos por centro.',
     puntos: [
-      'Centros de costo con las facturas que llegan solas desde iConstruye.',
-      'Resultado proyectado por familia y aprobación por niveles para cambiar un monto.',
+      'Integración con iConstruye: facturas, órdenes de compra y estados de pago.',
+      'Resultado proyectado por familia y aprobación por niveles para cambios de monto contrato.',
     ],
   },
   {
     id: 'hormigon', escena: 'hormigon', pestaña: 'Guías de hormigón', segundos: 4.5,
     titulo: 'Cero sobrecostos en hormigón.',
     puntos: [
-      'Una foto al WhatsApp del bot: la IA lee proveedor, m³ y elemento, y los cruza con lo programado.',
-      'Detecta sobrestadía, devoluciones y diferencias entre lo despachado y lo colocado, guía por guía.',
+      'Lectura OCR de guías de despacho vía WhatsApp: proveedor, volumen y elemento.',
+      'Control de sobrestadía, devoluciones y diferencias entre volumen despachado y colocado.',
     ],
     cifra: { valor: '−12 %', texto: 'promedio en sobrecostos de hormigón' },
   },
   {
     id: 'last-planner', escena: 'last-planner', pestaña: 'Last Planner', segundos: 4,
-    titulo: 'Compromisos que se cumplen.',
+    titulo: 'Last Planner System.',
     puntos: [
-      'Plan semanal, look-ahead, asistencia y restricciones con responsable y fecha.',
-      'Reporte automático con QR de proyecto, que le llega a todo el equipo por WhatsApp.',
+      'Plan semanal, Look Ahead, asistencia y restricciones con responsable y compromiso.',
+      'Informe semanal automático con QR de proyecto, distribuido al equipo por WhatsApp.',
     ],
   },
   {
     id: 'salud', escena: 'salud', pestaña: 'Salud de obra', segundos: 4,
-    titulo: 'La obra en una sola pantalla.',
+    titulo: 'Salud de obra.',
     puntos: [
-      'La app móvil sintetiza plazo, costo, productividad y compromisos en un Health Score único.',
-      'SPI, CPI, PPC y el pronóstico de costo final en el bolsillo de la gerencia, con alertas antes de que los problemas se vuelvan caros.',
+      'Índice consolidado de plazo, costo, productividad y compromisos (Health Score).',
+      'SPI, CPI, PPC y estimación de costo final (EAC) en la aplicación móvil, con alertas tempranas.',
     ],
   },
 ];
@@ -60,11 +60,11 @@ export default function ControlObra() {
       <div className="mx-auto max-w-7xl px-5 py-24 sm:px-12 sm:py-28">
         <Revelar as="p" className="font-mono text-xs font-medium uppercase tracking-[0.2em] text-iso-sky">La suite</Revelar>
         <Revelar as="h2" retraso={80} className="mt-4 max-w-3xl text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-          Cinco módulos. Una sola fuente de verdad.
+          Cinco módulos. Una sola fuente de datos.
         </Revelar>
         <Revelar as="p" retraso={140} className="mt-5 max-w-2xl text-lg leading-relaxed text-white/60">
-          Todo lo que entra por WhatsApp en terreno se ve al instante en la programación 4D, en la curva de
-          hormigón y en los KPIs de gerencia. Sin planillas, sin pasar datos de un sistema a otro.
+          La información ingresada en terreno se refleja en la programación 4D, el control de hormigón y los
+          indicadores de gerencia, sin traspaso manual de datos.
         </Revelar>
 
         {/* Pestañas: en el teléfono se deslizan de lado */}

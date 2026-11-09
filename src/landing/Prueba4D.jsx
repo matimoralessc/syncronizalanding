@@ -273,12 +273,12 @@ export default function Prueba4D() {
   return (
     <section id="prueba" aria-label="Prueba el 4D" className="bg-negro">
       <div className="mx-auto max-w-7xl px-5 pb-8 pt-24 sm:px-12 sm:pt-32">
-        <Revelar as="p" className="font-mono text-xs font-medium uppercase tracking-[0.2em] text-iso-sky">Pruébalo tú</Revelar>
+        <Revelar as="p" className="font-mono text-xs font-medium uppercase tracking-[0.2em] text-iso-sky">Simulación 4D</Revelar>
         <Revelar as="h2" retraso={80} className="mt-4 max-w-3xl text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
-          Mueve la obra en el tiempo.
+          Recorra la obra en el tiempo.
         </Revelar>
         <Revelar as="p" retraso={160} className="mt-5 max-w-2xl text-lg leading-relaxed text-white/60">
-          Gírala, elige una semana y compara lo planificado con lo que de verdad pasó. Toca un piso para ver su ficha.
+          Rote el modelo, seleccione una semana y compare lo planificado con el avance real. Seleccione un nivel para ver su ficha.
         </Revelar>
       </div>
 
@@ -288,7 +288,7 @@ export default function Prueba4D() {
             ref={caja}
             className="aspect-[4/5] w-full cursor-grab select-none active:cursor-grabbing sm:aspect-[16/9]"
             style={{ touchAction: 'pan-y' }}
-            aria-label="Modelo 4D de ejemplo: arrastra para girarlo, toca un piso para ver su ficha"
+            aria-label="Modelo 4D de ejemplo: arrastre para rotarlo y seleccione un nivel para ver su ficha"
           />
 
           {/* Arriba: el modo y las ayudas */}
@@ -303,7 +303,7 @@ export default function Prueba4D() {
             </div>
             <div className="pointer-events-auto flex items-center gap-2">
               <span className="hidden font-mono text-[11px] uppercase tracking-[0.16em] text-white/45 md:inline">
-                Arrastra para girar · ctrl + rueda para acercar
+                Arrastre para rotar · Ctrl + rueda para acercar
               </span>
               {[['−', 1.15, 'Alejar'], ['+', 0.87, 'Acercar']].map(([t, k, a]) => (
                 <button key={t} type="button" onClick={() => acercar(k)} aria-label={a}
@@ -318,7 +318,7 @@ export default function Prueba4D() {
           <div className="pointer-events-none absolute left-3 top-16 flex flex-wrap gap-x-3 gap-y-1 sm:left-5 sm:top-20">
             {(modo === 'plan'
               ? CICLOS.slice(0, 4).map((c, i) => [c, `Ciclo ${i + 1}`])
-              : [[VERDE, 'A tiempo'], [AMBAR, 'Terminado tarde'], [ROJO, 'Atrasado']]
+              : [[VERDE, 'A tiempo'], [AMBAR, 'Terminado con atraso'], [ROJO, 'Atrasado']]
             ).map(([c, t]) => (
               <span key={t} className="flex items-center gap-1.5 text-[11.5px] text-white/70">
                 <i className="h-2.5 w-2.5 rounded-sm" style={{ background: c }} />{t}

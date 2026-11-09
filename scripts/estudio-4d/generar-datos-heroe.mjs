@@ -4,7 +4,11 @@ import fs from 'node:fs';
 import { TOMAS } from './tomas.mjs';
 
 const crudo = JSON.parse(fs.readFileSync('datos-heroe-crudos.json', 'utf8'));
-const OCULTOS = ['Alcantarillado', 'AALL Edificio']; // apagados en la toma
+// Lo que NO se cuenta: desde nov-2026 el estructural está dos veces en el visor
+// (el original y el «seccionado» _avance, que es el que se usa); contar los dos
+// duplicaba el edificio. Las cañerías sí se cuentan aunque no se vean: así el
+// total cuadra con los elementos vinculados de la franja «En obra hoy».
+const OCULTOS = ['Calculo_Panoramica_Rev0002.ifc'];
 const visiblesDe = (t) => Object.entries(t.porModelo)
   .filter(([m]) => !OCULTOS.some((o) => m.includes(o)))
   .reduce((a, [, n]) => a + n, 0);

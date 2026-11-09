@@ -156,27 +156,27 @@ export default function Heroe({ reducido }) {
         <div ref={portadaRef} className="sombra-texto absolute inset-x-0 top-0 z-10 px-6 pt-24 sm:px-12 lg:px-16">
           <p className="etiqueta text-iso-sky">Plataforma de control de proyectos · Obra Panorámica, Constructora Inspira</p>
           <h1 className="titulo-degradado mt-6 max-w-[680px] text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl">
-            Mira tu obra
+            Su obra en 4D,
             <br />
             antes de construirla.
           </h1>
           <p className="mt-6 max-w-[680px] text-lg text-texto-2">
-            Programar, controlar y reportar la obra desde un solo lugar: BIM 4D, Last Planner,
-            control por WhatsApp y la app móvil de salud de obra, trabajando sobre la misma base
-            de datos en tiempo real.
+            Programación, control y reportabilidad de la obra en una sola plataforma: BIM 4D,
+            Last Planner System, control de hormigón y canal de terreno por WhatsApp, sobre una
+            base de datos única.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <a href="#contacto" className="boton-principal">
-              Agenda una demo de 30 minutos
+              Solicitar demostración
               <ArrowRight size={18} weight="bold" aria-hidden="true" />
             </a>
-            <a href="#prueba" className="boton-secundario">Pruébalo tú</a>
+            <a href="#prueba" className="boton-secundario">Ver simulación 4D</a>
           </div>
           {/* La pista se apaga apenas el visitante empieza a bajar. */}
           {!reducido && (
             <p ref={pistaRef} className="etiqueta mt-12 flex items-center gap-2">
               <ArrowDown size={16} aria-hidden="true" />
-              Baja y avanza la obra
+              Desplácese para avanzar el programa
             </p>
           )}
         </div>
@@ -184,8 +184,8 @@ export default function Heroe({ reducido }) {
         {/* ---- Leyendas que acompañan la subida --------------------------- */}
         <div className="sombra-texto pointer-events-none absolute inset-x-0 top-0 z-10 px-6 pt-24 sm:px-12 lg:px-16">
           {[
-            { eti: 'Cada color, un ciclo', txt: 'Las losas, muros y vigas aparecen el día que el programa dice que se hormigonan.' },
-            { eti: 'El scroll es el calendario', txt: 'Bajar la página es avanzar el programa de Panorámica, día por día, sobre su modelo.' },
+            { eti: 'Ciclos de hormigonado', txt: 'Cada elemento aparece en la fecha programada, con el color de su ciclo.' },
+            { eti: 'Programa vinculado al modelo', txt: 'El desplazamiento recorre el programa de Panorámica sobre su modelo IFC.' },
           ].map((l, k) => (
             <div
               key={l.eti}
@@ -203,14 +203,14 @@ export default function Heroe({ reducido }) {
           {/* En el teléfono el edificio llena la pantalla y el texto lo pisaba:
               ahí va en vidrio. En escritorio el sujeto ya quedó a la derecha. */}
           <div className="max-sm:rounded-2xl max-sm:border max-sm:border-white/10 max-sm:bg-black/60 max-sm:p-6 max-sm:backdrop-blur-md">
-          <p className="etiqueta text-iso-sky">Obra gruesa, del modelo</p>
+          <p className="etiqueta text-iso-sky">Obra gruesa · Modelo IFC</p>
           <h2 className="titulo-degradado mt-4 max-w-[680px] text-4xl font-semibold tracking-tight sm:text-5xl">
-            Así se ve tu programa
+            El programa, visualizado
             <br />
-            antes de partir la obra.
+            antes del inicio de obra.
           </h2>
           <a href="#contacto" className="boton-principal mt-8">
-            Quiero ver mi obra en 4D
+            Solicitar demostración
             <ArrowRight size={18} weight="bold" aria-hidden="true" />
           </a>
           </div>

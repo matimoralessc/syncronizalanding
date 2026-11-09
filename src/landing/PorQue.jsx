@@ -2,9 +2,9 @@ import Revelar from './Revelar.jsx';
 
 // «Por qué Syncroniza», de la landing de Pedro (SyncronizaLanding2.jsx, 06).
 const RAZONES = [
-  ['Hecho en Chile, para la obra chilena', 'Pensado sobre Last Planner, MS Project y los flujos reales de constructoras locales.'],
-  ['Implementación en días, no en meses', 'El equipo sigue usando WhatsApp en obra. La oficina ve los datos al instante.'],
-  ['Suite integrada y modular', 'Empieza por un módulo (Last Planner, guías, 4D) y crece al ritmo del proyecto.'],
+  ['Desarrollado en Chile', 'Diseñado sobre Last Planner System, MS Project y los procesos de las constructoras locales.'],
+  ['Implementación en días', 'El equipo de terreno mantiene WhatsApp; la oficina técnica accede a los datos en tiempo real.'],
+  ['Suite modular', 'Implementación por módulo (Last Planner, guías, 4D) y escalamiento según el proyecto.'],
 ];
 
 export default function PorQue() {
@@ -16,7 +16,7 @@ export default function PorQue() {
           Una plataforma. Toda la obra.
         </Revelar>
         <Revelar as="p" retraso={140} className="mt-5 max-w-2xl text-lg leading-relaxed text-white/60">
-          Syncroniza no reemplaza al jefe de terreno. Le devuelve las horas que pierde haciendo planillas.
+          Syncroniza no reemplaza al jefe de terreno: le devuelve las horas que hoy destina a planillas.
         </Revelar>
         <div className="mt-12 grid gap-8 md:grid-cols-3">
           {RAZONES.map(([t, d], i) => (

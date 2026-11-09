@@ -8,14 +8,15 @@ import Frase from './Frase.jsx';
 import VideoBucle from './VideoBucle.jsx';
 
 // Las cifras de esta página salen de la obra Panorámica tal como está cargada
-// en el visor 4D de producción (octubre 2026). No son redondeos de marketing:
-// si cambian en la obra, se cambian acá.
+// en el visor 4D (medidas el 9-nov-2026 en la copia de producción: programa
+// Rev005, 27-jul-2026 a 7-mar-2028). No son redondeos de marketing: si cambian
+// en la obra, se cambian acá.
 const OBRA = {
-  tareas: '1.756',
-  elementos: '2.918',
-  partidasVinculadas: '114',
-  modelos: '6',
-  semanas: '83',
+  tareas: '1.767',
+  elementos: '3.338',
+  partidasVinculadas: '195',
+  modelos: '9',
+  semanas: '84',
 };
 
 function Encabezado({ etiqueta, titulo, children, centrado = false }) {
@@ -45,10 +46,10 @@ function Marco({ children, className = '' }) {
 // ─── Prueba ────────────────────────────────────────────────────────────────
 export function Prueba() {
   const datos = [
-    { n: OBRA.tareas, t: 'tareas en el programa de MS Project' },
-    { n: OBRA.elementos, t: 'elementos del modelo vinculados a su partida' },
-    { n: OBRA.modelos, t: 'modelos federados en una sola vista' },
-    { n: OBRA.semanas, t: 'semanas de obra, de julio 2026 a febrero 2028' },
+    { n: OBRA.tareas, t: 'tareas en el programa (MS Project)' },
+    { n: OBRA.elementos, t: 'elementos IFC vinculados a partidas' },
+    { n: OBRA.modelos, t: 'modelos federados' },
+    { n: OBRA.semanas, t: 'semanas de programa' },
   ];
   return (
     <section aria-label="En obra hoy" className="border-y border-white/10 bg-negro">
@@ -63,8 +64,8 @@ export function Prueba() {
             className="mt-6 h-9 w-auto"
           />
           <p className="mt-6 text-base text-texto-3">
-            Panorámica, de Constructora Inspira. El edificio que se levanta arriba es
-            esta obra, grabada en el visor de Syncroniza 4D.
+            Panorámica, Constructora Inspira. El modelo del encabezado corresponde a esta
+            obra, registrado en Syncroniza 4D.
           </p>
         </Revelar>
         <dl className="grid grid-cols-2 gap-8 lg:col-span-8 lg:grid-cols-4">
@@ -88,7 +89,7 @@ export function FraseCentral() {
       <div className="mx-auto max-w-5xl px-6 py-24 sm:px-12">
         <Frase
           className="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl"
-          texto="Lo que el terreno reporta en la mañana, la oficina lo ve sobre el modelo antes de almuerzo."
+          texto="Lo reportado en terreno durante la mañana está disponible sobre el modelo antes del mediodía."
         />
       </div>
     </section>
@@ -100,26 +101,26 @@ export function ComoFunciona() {
   const pasos = [
     {
       icono: FileArrowUp,
-      titulo: 'Sube el modelo y el programa',
-      texto: 'El IFC que exporta Revit y el XML de MS Project. Son los archivos que tu oficina técnica ya tiene: no se dibuja ni se programa nada de nuevo.',
+      titulo: 'Carga del modelo y del programa',
+      texto: 'Archivo IFC exportado desde Revit y XML de MS Project: los entregables vigentes de la oficina técnica, sin remodelar ni reprogramar.',
     },
     {
       icono: LinkSimple,
-      titulo: 'Vincula cada elemento con su partida',
-      texto: `El visor detecta los ciclos de hormigonado y te sugiere los vínculos. En Panorámica son ${OBRA.elementos} elementos en ${OBRA.partidasVinculadas} partidas.`,
+      titulo: 'Vinculación de elementos y partidas',
+      texto: `El visor detecta los ciclos de hormigonado y propone los vínculos. En Panorámica: ${OBRA.elementos} elementos en ${OBRA.partidasVinculadas} partidas.`,
     },
     {
       icono: WhatsappLogo,
-      titulo: 'El terreno reporta y el modelo se pinta',
-      texto: 'El capataz manda fotos, audios y guías por WhatsApp. El avance real queda en el modelo, en la curva S y en el informe de la semana.',
+      titulo: 'Reporte de terreno',
+      texto: 'Fotografías, audios y guías de despacho vía WhatsApp alimentan el avance real, la curva S y el informe semanal.',
     },
   ];
   return (
     <section id="como-funciona" className="bg-negro">
       <div className="mx-auto max-w-7xl px-6 py-24 sm:px-12 lg:px-16">
-        <Encabezado etiqueta="Cómo funciona" titulo="Tres pasos y la obra queda al día">
-          Sin cambiar de herramientas: tu programa sigue en MS Project, tu modelo en
-          Revit y tu equipo en WhatsApp. Syncroniza los junta.
+        <Encabezado etiqueta="Implementación" titulo="Tres pasos para operar la obra.">
+          Sin reemplazar herramientas: el programa se mantiene en MS Project, el modelo en
+          Revit y el equipo en WhatsApp. Syncroniza los integra.
         </Encabezado>
         <ol className="mt-16 grid gap-4 lg:grid-cols-3">
           {pasos.map((p, i) => (
@@ -341,15 +342,15 @@ export function Contacto() {
   const [intentado, setIntentado] = useState(false);
   const campo = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
   const errores = {
-    nombre: form.nombre.trim() === '' ? 'Escribe tu nombre.' : null,
-    empresa: form.empresa.trim() === '' ? 'Escribe el nombre de tu empresa.' : null,
+    nombre: form.nombre.trim() === '' ? 'Ingrese su nombre.' : null,
+    empresa: form.empresa.trim() === '' ? 'Ingrese el nombre de su empresa.' : null,
   };
   const listo = !errores.nombre && !errores.empresa;
 
   const cuerpo = () => [
     `Hola, soy ${form.nombre.trim()} de ${form.empresa.trim()}.`,
     form.obra.trim() && `Obra: ${form.obra.trim()}.`,
-    'Quiero ver una demo de Syncroniza.',
+    'Solicito una demostración de Syncroniza.',
     form.mensaje.trim() && `\n${form.mensaje.trim()}`,
   ].filter(Boolean).join('\n');
 
@@ -370,15 +371,15 @@ export function Contacto() {
     <section id="contacto" className="border-t border-white/10 bg-negro">
       <div className="mx-auto grid max-w-7xl gap-16 px-6 py-24 sm:px-12 lg:grid-cols-12 lg:px-16">
         <div className="lg:col-span-5">
-          <Encabezado etiqueta="Demo" titulo="¿Vemos tu obra en 4D?">
-            Treinta minutos con Panorámica en vivo: el 4D, el avance real y el canal de
-            WhatsApp. Después vemos qué necesita tu obra para partir.
+          <Encabezado etiqueta="Demostración" titulo="¿Revisamos su obra en 4D?">
+            Sesión de 30 minutos con Panorámica en vivo: modelo 4D, avance real y canal de
+            WhatsApp. Al cierre se define el alcance de implementación para su obra.
           </Encabezado>
           <Revelar as="ul" retraso={240} className="mt-8 space-y-3">
             {[
-              'No hay que dejar MS Project: se importa el programa que ya tienes.',
-              'El piloto parte en una obra, no en toda la constructora.',
-              'El capataz no instala nada: usa el WhatsApp que ya tiene.',
+              'Compatible con MS Project: se importa el programa vigente.',
+              'Piloto acotado a una obra.',
+              'Sin instalación en terreno: opera sobre WhatsApp.',
             ].map((t) => (
               <li key={t} className="flex gap-3 text-base text-texto-2">
                 <CheckCircle size={20} weight="fill" className="mt-0.5 shrink-0 text-iso-sky" aria-hidden="true" />
@@ -399,28 +400,28 @@ export function Contacto() {
             </div>
             <div className="mt-6">
               <label htmlFor="mensaje" className="text-sm font-medium text-texto-2">
-                Qué quieres resolver <span className="text-texto-4">(opcional)</span>
+                Requerimiento <span className="text-texto-4">(opcional)</span>
               </label>
               <textarea
                 id="mensaje"
                 rows={3}
                 value={form.mensaje}
                 onChange={campo('mensaje')}
-                placeholder="Ej: no sé cuánto hormigón llegó realmente a la obra esta semana."
+                placeholder="Ej.: control del hormigón despachado versus colocado por semana."
                 className="mt-2 w-full resize-none rounded-xl border border-white/10 bg-negro px-4 py-3 text-base text-white placeholder:text-texto-4 transition-colors duration-300 ease-fluido focus:border-iso-sky focus:outline-none"
               />
             </div>
             <button type="submit" className="boton-principal mt-8 w-full">
               <WhatsappLogo size={20} weight="fill" aria-hidden="true" />
-              Abrir WhatsApp con el mensaje listo
+              Enviar por WhatsApp
             </button>
             <p className="mt-4 text-center text-sm text-texto-3">
-              ¿Prefieres correo?{' '}
+              ¿Prefiere correo electrónico?{' '}
               <button type="button" onClick={irAMail} className="font-medium text-white underline underline-offset-4 transition-colors duration-300 hover:text-iso-sky">
                 contacto@syncroniza.cl
               </button>
             </p>
-            <p className="mt-2 text-center text-xs text-texto-4">Se abre con tus datos escritos. Tú decides cuándo enviar.</p>
+            <p className="mt-2 text-center text-xs text-texto-4">El mensaje se abre con sus datos; el envío lo confirma usted.</p>
           </form>
         </Revelar>
       </div>
@@ -461,7 +462,7 @@ export function Pie() {
               <span className="text-lg font-semibold text-white">Syncroniza</span>
             </a>
             <p className="mt-4 max-w-sm text-sm text-texto-3">
-              Programación, avance y control de obra sobre el modelo. Hecho en Chile, para la obra chilena.
+              Planificación 4D y control de obra sobre el modelo BIM. Desarrollado en Chile.
             </p>
           </div>
           <nav aria-label="Pie" className="grid grid-cols-2 gap-8 md:col-span-7 md:grid-cols-3">
@@ -482,7 +483,7 @@ export function Pie() {
               <p className="etiqueta">Empresa</p>
               <ul className="mt-4 space-y-3 text-sm">
                 <li><a className="text-texto-2 transition-colors hover:text-white" href="#como-funciona">Cómo funciona</a></li>
-                <li><a className="text-texto-2 transition-colors hover:text-white" href="#contacto">Agenda una demo</a></li>
+                <li><a className="text-texto-2 transition-colors hover:text-white" href="#contacto">Solicitar demostración</a></li>
               </ul>
             </div>
             <div>

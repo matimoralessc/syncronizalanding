@@ -27,12 +27,12 @@ const RESPUESTAS = [
   {
     pregunta: '¿Cómo va el avance de la obra?',
     claves: ['avance', 'atras', 'curva', 'spi', 'plazo', 'va la obra', 'como vamos'],
-    respuesta: `Al corte del ${corte} vamos en *${pts(EVM.realCorte)} %* contra ${pts(EVM.planCorte)} % programado: ${pts(brecha)} puntos abajo, unas *${num(semanasAtraso, 1)} semanas de atraso* (SPI ${num(EVM.spi, 2)}).\n\nLo que más pesa es la obra gruesa de la torre, que se corrió con las lluvias de invierno.`,
+    respuesta: `Al corte del ${corte} vamos en *${pts(EVM.realCorte)} %* contra ${pts(EVM.planCorte)} % programado: ${pts(brecha)} puntos abajo, unas *${num(semanasAtraso, 1)} semanas de atraso* (SPI ${num(EVM.spi, 2)}).\n\nLa principal desviación está en la obra gruesa de la torre, desplazada por las lluvias de invierno.`,
   },
   {
     pregunta: '¿Qué familia de costos está más complicada?',
     claves: ['costo', 'familia', 'gasto', 'presupuesto', 'plata', 'cpi', 'complicad'],
-    respuesta: `*${peorFamilia.nombre}*: lleva ${pts(peorFamilia.uso)} % de su presupuesto gastado con ${pts(EVM.realCorte)} % de avance de la obra. Va gastando más rápido de lo que avanza.\n\nEl CPI de la obra está en ${num(EVM.cpi, 2)}.`,
+    respuesta: `*${peorFamilia.nombre}*: lleva ${pts(peorFamilia.uso)} % de su presupuesto gastado con ${pts(EVM.realCorte)} % de avance de la obra. El gasto avanza más rápido que la obra.\n\nEl CPI de la obra está en ${num(EVM.cpi, 2)}.`,
   },
   {
     pregunta: '¿Cuánto le hemos facturado a Hormigones Andes?',
@@ -42,7 +42,7 @@ const RESPUESTAS = [
   {
     pregunta: '¿Cuántos m³ necesito para el lunes?',
     claves: ['m3', 'm³', 'hormig', 'lunes', 'cubic', 'losa'],
-    respuesta: 'Para el lunes hay planificados *84,6 m³* en el 4D: losa del piso 14, sectores 1 y 2 (H-30).\n\nPide 12 camiones de 7,5 m³ con margen de una guía.',
+    respuesta: 'Para el lunes hay planificados *84,6 m³* en el 4D: losa del piso 14, sectores 1 y 2 (H-30).\n\nSe requieren 12 camiones de 7,5 m³, con margen de una guía.',
   },
   {
     pregunta: '¿Qué restricciones vencen esta semana?',
@@ -55,7 +55,7 @@ const RESPUESTAS = [
     respuesta: 'La guía *N° 48213* de Hormigones Andes (7,5 m³ H-30, losa piso 13) la validó *Claudio Reyes* hoy a las 11:41, desde el WhatsApp.',
   },
 ];
-const NO_SE = 'Eso te lo muestro con los datos de tu obra en la demo 🙂\n\nPrueba con una de las preguntas de abajo.';
+const NO_SE = 'Esa consulta se revisa con los datos de su obra en la demostración.\n\nPruebe con una de las preguntas sugeridas.';
 
 function responder(texto) {
   const t = texto.toLowerCase();
@@ -80,10 +80,19 @@ const hora = () => new Date().toLocaleTimeString('es-CL', { hour: '2-digit', min
 
 export default function Agente() {
   const [mensajes, setMensajes] = useState([
-    { de: 'bot', t: `Hola 👋 Soy el agente Syncroniza de *${OBRA.nombre}*. Pregúntame lo que quieras de la obra.`, h: '08:00' },
+    { de: 'bot', t: `Hola 👋 Soy el agente Syncroniza de *${OBRA.nombre}*. ¿En qué le puedo ayudar?`, h: '08:00' },
   ]);
   const [escribiendo, setEscribiendo] = useState(false);
   const [entrada, setEntrada] = useState('');
+  // La presentación del agente (film de 66 s con voz, ~/Videos/Syncroniza):
+  // se abre a pedido, con sonido; el MP4 no se baja si nadie la abre.
+  const [verFilm, setVerFilm] = useState(false);
+  useEffect(() => {
+    if (!verFilm) return undefined;
+    const tecla = (e) => { if (e.key === 'Escape') setVerFilm(false); };
+    window.addEventListener('keydown', tecla);
+    return () => window.removeEventListener('keydown', tecla);
+  }, [verFilm]);
   const lista = useRef(null);
   const usadas = new Set(mensajes.filter((m) => m.de === 'yo').map((m) => m.t));
 
@@ -110,18 +119,18 @@ export default function Agente() {
         <div className="min-w-0 lg:col-span-6">
           <Revelar as="p" className="font-mono text-xs font-medium uppercase tracking-[0.2em] text-iso-sky">El agente Syncroniza</Revelar>
           <Revelar as="h2" retraso={80} className="mt-4 text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-            Pregúntale lo que quieras de tu obra.
+            Consultas de obra en lenguaje natural.
           </Revelar>
           <Revelar as="p" retraso={140} className="mt-5 max-w-xl text-lg leading-relaxed text-white/60">
-            Por WhatsApp o en la web. Conoce el programa, el avance, los costos, las guías y las restricciones,
-            y responde al tiro con las cifras de la obra. Pruébalo aquí al lado.
+            Disponible en WhatsApp y en la plataforma web. Responde con los datos vigentes de programa, avance,
+            costos, hormigón y restricciones.
           </Revelar>
           <ul className="mt-8 grid gap-4 sm:grid-cols-2">
             {[
-              ['Sabe de todos los frentes', 'Avance, costos, hormigón, Last Planner y el 4D, en una sola conversación.'],
-              ['Sabe quién hizo qué', 'Quién validó una guía, quién levantó una restricción, cuántas facturas entraron.'],
-              ['Respeta los permisos', 'Cada persona ve lo que le corresponde: el capataz no ve los costos si no debe.'],
-              ['En el WhatsApp de siempre', 'Sin instalar nada. Por el mismo número se mandan guías y restricciones.'],
+              ['Cobertura integral', 'Avance, costos, hormigón, Last Planner y modelo 4D en una misma consulta.'],
+              ['Trazabilidad', 'Registro de quién valida guías, levanta restricciones o ingresa documentos.'],
+              ['Control de permisos', 'Cada usuario accede solo a la información de su perfil.'],
+              ['Sin instalación', 'Opera sobre WhatsApp; el mismo canal recibe guías y restricciones.'],
             ].map(([t, d], i) => (
               <Revelar as="li" key={t} retraso={180 + i * 60} className="border-t border-white/10 pt-4">
                 <p className="text-[15.5px] font-semibold">{t}</p>
@@ -129,7 +138,24 @@ export default function Agente() {
               </Revelar>
             ))}
           </ul>
+          <button type="button" onClick={() => setVerFilm(true)}
+            className="mt-8 inline-flex items-center gap-3 rounded-full border border-white/15 py-1.5 pl-1.5 pr-5 text-[14.5px] font-semibold transition hover:border-white/40">
+            <img src="/videos/agente-syncroniza.webp" alt="" width={44} height={44} className="h-11 w-11 rounded-full object-cover" />
+            ▶ Presentación del agente <span className="font-normal text-white/50">· 1 min</span>
+          </button>
         </div>
+
+        {verFilm && (
+          <div role="dialog" aria-modal="true" aria-label="Presentación del agente Syncroniza"
+            className="fixed inset-0 z-[60] grid place-items-center bg-black/85 p-4 backdrop-blur" onClick={() => setVerFilm(false)}>
+            <div className="relative w-full max-w-[min(440px,calc((100svh-48px)*0.8))]" onClick={(e) => e.stopPropagation()}>
+              <video src="/videos/agente-syncroniza.mp4" poster="/videos/agente-syncroniza.webp" controls autoPlay playsInline
+                className="aspect-[4/5] w-full rounded-2xl border border-white/10 bg-black" />
+              <button type="button" onClick={() => setVerFilm(false)} aria-label="Cerrar"
+                className="absolute -right-2 -top-2 grid h-9 w-9 place-items-center rounded-full bg-white text-lg text-black">×</button>
+            </div>
+          </div>
+        )}
 
         {/* El chat */}
         <div className="min-w-0 lg:col-span-6">
@@ -167,7 +193,7 @@ export default function Agente() {
               ))}
             </div>
             <form onSubmit={(e) => { e.preventDefault(); preguntar(entrada); }} className="flex items-center gap-2 bg-[#1f2c33] px-3 py-2.5">
-              <input value={entrada} onChange={(e) => setEntrada(e.target.value)} placeholder="Escribe una pregunta…" aria-label="Pregunta para el agente"
+              <input value={entrada} onChange={(e) => setEntrada(e.target.value)} placeholder="Escriba una consulta…" aria-label="Pregunta para el agente"
                 className="min-w-0 flex-1 rounded-full bg-[#2a3942] px-4 py-2.5 text-[16px] text-white placeholder:text-[#8696a0] focus:outline-none sm:text-[14px]" />
               <button type="submit" aria-label="Enviar" disabled={!entrada.trim() || escribiendo}
                 className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#00a884] text-[16px] text-white disabled:opacity-40">➤</button>
