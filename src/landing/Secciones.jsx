@@ -58,9 +58,9 @@ export function Prueba() {
           <img
             src="/logo-inspira-blanco.png"
             alt="Constructora Inspira"
-            width={438}
-            height={126}
-            className="mt-6 h-10 w-auto opacity-80"
+            width={900}
+            height={212}
+            className="mt-6 h-9 w-auto"
           />
           <p className="mt-6 text-base text-texto-3">
             Panorámica, de Constructora Inspira. El edificio que se levanta arriba es
