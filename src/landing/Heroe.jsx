@@ -169,7 +169,7 @@ export default function Heroe({ reducido }) {
               Agenda una demo de 30 minutos
               <ArrowRight size={18} weight="bold" aria-hidden="true" />
             </a>
-            <a href="#como-funciona" className="boton-secundario">Cómo funciona</a>
+            <a href="#obras" className="boton-secundario">Ver la plataforma</a>
           </div>
           {/* La pista se apaga apenas el visitante empieza a bajar. */}
           {!reducido && (

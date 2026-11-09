@@ -1,0 +1,52 @@
+/* Display de los films: Archivo expandida (ancho 125, peso 800), la de los films de lanzamiento. */
+@import "@fontsource-variable/archivo/wdth.css";
+
+:root {
+  --fondo: #000;
+  --texto: #fff;
+  --texto-2: #c8c8c8;
+  --texto-3: #9b9b9b;
+  --texto-4: #6e6e6e;
+  --acento: #37b6ff;
+  --linea: rgba(255, 255, 255, 0.1);
+  --fluido: cubic-bezier(0.32, 0.72, 0, 1);
+  --display: 'Archivo Variable', 'Geist Variable', sans-serif;
+}
+
+
+
+
+/* ── Escena: contenedor que llena su caja; todo lo de adentro se dibuja por progreso ── */
+.escena { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--fondo); }
+.escena canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.escena svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+/* ── Sello de la marca (isotipo + nombre): se dimensiona con el font-size ── */
+.sello { display: inline-flex; align-items: center; gap: 0.5em; font-weight: 600; letter-spacing: -0.01em; line-height: 1; color: #fff; white-space: nowrap; }
+.sello img { display: block; height: 1.7em; width: auto; }
+
+/* ── HUD compartido (en unidades relativas a la escena: se ve igual en 1080p y en web) ── */
+.hud { position: absolute; inset: 0; pointer-events: none; font-size: var(--u, 16px); }
+.hud .eti { font-family: 'Geist Mono Variable', monospace; font-size: 0.75em; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--texto-3); }
+.hud .eti.azul { color: var(--acento); }
+.hud .cabecera { position: absolute; left: 4em; top: 3.1em; }
+.hud .cabecera .sello { font-size: 1.3em; }
+.hud .cabecera .sello + .eti { margin-top: 1.5em; }
+.hud .cabecera .titulo { margin-top: 0.6em; font-size: 1.25em; font-weight: 500; color: var(--texto-2); }
+.hud .panel {
+  position: absolute; left: 3em; right: 3em; bottom: 2.5em;
+  border: 1px solid var(--linea); background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-radius: 1.25em; padding: 1.1em 1.6em 0.9em;
+}
+.hud .fila { display: flex; align-items: flex-end; justify-content: space-between; gap: 2em; }
+.hud .datos { display: flex; gap: 3em; }
+.hud .valor { margin-top: 0.4em; font-family: 'Geist Mono Variable', monospace; font-size: 1.6em; color: #fff; white-space: nowrap; }
+.hud .valor .total { color: var(--texto-4); }
+.hud .chips { display: flex; gap: 0.6em; justify-content: flex-end; margin-top: 0.7em; }
+.hud .chip { width: 2.2em; height: 0.8em; border-radius: 999px; opacity: 0.25; transform: scale(0.8); transition: none; }
+.hud .chip.activo { opacity: 1; transform: scale(1); box-shadow: 0 0 1.2em currentColor; }
+.hud .linea-tiempo { position: relative; height: 1.6em; margin-top: 0.9em; }
+.hud .linea-tiempo .base { position: absolute; left: 0; right: 0; top: 0; height: 1px; background: rgba(255,255,255,0.15); }
+.hud .linea-tiempo .cabezal { position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--acento); transform-origin: left; }
+.hud .linea-tiempo .mes { position: absolute; top: 0.45em; transform: translateX(-50%); font-family: 'Geist Mono Variable', monospace; font-size: 0.7em; text-transform: uppercase; color: var(--texto-4); }

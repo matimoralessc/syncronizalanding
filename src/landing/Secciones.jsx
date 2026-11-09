@@ -469,15 +469,16 @@ export function Pie() {
               <p className="etiqueta">Producto</p>
               <ul className="mt-4 space-y-3 text-sm">
                 <li><a className="text-texto-2 transition-colors hover:text-white" href="#cuatro-d">Planificación 4D</a></li>
-                <li><a className="text-texto-2 transition-colors hover:text-white" href="#avance">Avance real</a></li>
+                <li><a className="text-texto-2 transition-colors hover:text-white" href="#avance">Control de avance</a></li>
+                <li><a className="text-texto-2 transition-colors hover:text-white" href="#costos">Costos</a></li>
+                <li><a className="text-texto-2 transition-colors hover:text-white" href="#hormigon">Hormigón</a></li>
+                <li><a className="text-texto-2 transition-colors hover:text-white" href="#last-planner">Last Planner</a></li>
                 <li><a className="text-texto-2 transition-colors hover:text-white" href="#terreno">Canal de terreno</a></li>
               </ul>
             </div>
             <div>
               <p className="etiqueta">Empresa</p>
               <ul className="mt-4 space-y-3 text-sm">
-                <li><a className="text-texto-2 transition-colors hover:text-white" href="#como-funciona">Cómo funciona</a></li>
-                <li><a className="text-texto-2 transition-colors hover:text-white" href="#preguntas">Preguntas</a></li>
                 <li><a className="text-texto-2 transition-colors hover:text-white" href="#contacto">Agenda una demo</a></li>
               </ul>
             </div>
