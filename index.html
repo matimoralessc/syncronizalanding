@@ -2,44 +2,40 @@
 <html lang="es-CL">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
-    <title>Syncroniza · Programar, controlar y reportar la obra desde un solo lugar</title>
+    <title>Syncroniza · Mira tu obra antes de construirla</title>
     <meta
       name="description"
-      content="Syncroniza une programación, avance real, costos y reportes en una sola plataforma. El terreno reporta por WhatsApp y la oficina ve la obra al día."
+      content="Syncroniza conecta tu programa de MS Project con el modelo BIM y con lo que el terreno reporta por WhatsApp. Planificación 4D, avance real sobre el modelo, Last Planner y control de hormigón."
     />
-    <meta name="theme-color" content="#0E1420" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="color-scheme" content="dark" />
 
-    <!-- Iconos: el isotipo real, no el placeholder -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
 
-    <!-- Open Graph / Twitter -->
+    <!-- El póster del héroe se pide antes que el JS: es lo primero que se ve.
+         Uno por forma de pantalla, con el mismo corte que usa el héroe (860 px o vertical). -->
+    <link rel="preload" as="image" href="/4d/heroe-poster.webp" type="image/webp" media="(min-width: 861px) and (orientation: landscape)" />
+    <link rel="preload" as="image" href="/4d/heroe-poster-movil.webp" type="image/webp" media="(max-width: 860px), (orientation: portrait)" />
+
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Syncroniza" />
     <meta property="og:locale" content="es_CL" />
-    <meta property="og:title" content="Syncroniza · Control de obra en un solo lugar" />
+    <meta property="og:title" content="Syncroniza · Mira tu obra antes de construirla" />
     <meta
       property="og:description"
-      content="Programación, avance real, costos y reportes conectados. El terreno reporta por WhatsApp y la oficina ve la obra al día."
+      content="Tu programa de obra sobre el modelo BIM, al día con lo que reporta el terreno. Planificación 4D, avance real, Last Planner y control de hormigón."
     />
     <meta property="og:image" content="/og-syncroniza.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Syncroniza · Control de obra en un solo lugar" />
+    <meta name="twitter:title" content="Syncroniza · Mira tu obra antes de construirla" />
     <meta
       name="twitter:description"
-      content="Programación, avance real, costos y reportes conectados. El terreno reporta por WhatsApp y la oficina ve la obra al día."
+      content="Tu programa de obra sobre el modelo BIM, al día con lo que reporta el terreno."
     />
     <meta name="twitter:image" content="/og-syncroniza.png" />
-
-    <!-- Las mismas familias que usa la app, para que landing y producto se lean igual -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body>
     <div id="root"></div>

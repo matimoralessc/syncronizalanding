@@ -5,8 +5,8 @@ recortes con parches encima. Acá está la receta, porque las coordenadas de eso
 parches salieron de medir el video frame por frame y no hay forma de deducirlas
 mirando el resultado.
 
-**Los masters no están en el repo** (pesan 24 MB). Para rehacer el video hay que
-dejarlos en `/tmp/master/hormigon.mp4` y `/tmp/master/bim4d.mp4`.
+**El master no está en el repo** (pesa 24 MB). Para rehacer el video hay que
+dejarlo en `/tmp/master/hormigon.mp4`.
 
 ## Hormigón
 
@@ -60,18 +60,5 @@ ffmpeg -i public/hormigon-demo.mp4 -vf "select='eq(n,10)'" -frames:v 1 -q:v 3 \
 
 ## 4D
 
-Una sola pasada, sin parches móviles:
-
-```bash
-ffmpeg -i /tmp/master/bim4d.mp4 \
-  -vf "crop=1920:708:0:186,\
-drawbox=x=0:y=598:w=121:h=110:color=0x12121E@1:t=fill,\
-drawbox=x=121:y=634:w=330:h=58:color=0x212931@1:t=fill,\
-scale=1440:-2" \
-  -an -c:v libx264 -crf 26 -preset slow -pix_fmt yuv420p -movflags +faststart \
-  -y public/bim4d-demo.mp4
-```
-
-Los dos `drawbox` tapan el isotipo viejo de Syncroniza, que ya no es la marca.
-Los hex también están compensados por el `yuv420p` (`0x11111D` salía visible,
-`0x12121E` no).
+El video del 4D ya no sale de una grabación de pantalla: se graba cuadro a cuadro
+desde el visor real. Ver `scripts/estudio-4d/README.md`.

@@ -1,164 +1,104 @@
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/geist-mono";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  /* Las mismas familias que la app: Archivo para títulos, IBM Plex Sans para texto. */
   html {
-    scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
+    background: #000;
   }
 
   body {
-    @apply font-ui text-ink bg-white;
+    @apply bg-negro text-texto font-sans antialiased;
     text-rendering: optimizeLegibility;
   }
 
-  /* El nav es fijo y mide 4rem: sin esto los anclajes quedan tapados. */
-  section[id] {
-    scroll-margin-top: 5rem;
-  }
+  /* Ninguna palabra sola en la última línea: los títulos se balancean y los
+     párrafos usan `pretty`, que reparte mejor el final sin mover el resto. */
+  h1, h2, h3 { text-wrap: balance; }
+  p, li, dd { text-wrap: pretty; }
 
-  ::selection {
-    @apply bg-brand text-white;
-  }
+  /* La nav flota a 24px del borde y mide 48: los anclajes caen debajo. */
+  section[id] { scroll-margin-top: 96px; }
+
+  ::selection { background: #37B6FF; color: #000; }
+
+  /* Foco visible siempre, en el azul claro del isotipo. */
+  :focus-visible { outline: 2px solid #37B6FF; outline-offset: 2px; }
 }
 
-/* ===========================================================================
-   Motion — las clases que consume src/motion.jsx
-   Solo se animan opacity, transform y filter: las tres que el navegador
-   compone en GPU sin recalcular layout. Nada de `transition: all`.
-   =========================================================================== */
 @layer components {
-  /* --- <Reveal> ---------------------------------------------------------- */
-  /* Sin `will-change`: hay ~50 de estos en la página y promover 50 capas de
-     composición a la vez cuesta más de lo que ahorra. El navegador ya promueve
-     solo durante la transición, que es exactamente cuando hace falta. */
-  .silk-reveal {
-    opacity: 0;
-    transform: translate3d(var(--reveal-x, 0), var(--reveal-y, 20px), 0);
-    transition:
-      opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-      transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* Degradado SOLO en el texto del héroe y los títulos grandes (B5 de la skill):
+     blanco a gris de izquierda a derecha. Los fondos son planos. */
+  .titulo-degradado {
+    background: linear-gradient(90deg, #ffffff 0%, #9b9b9b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
-  .silk-reveal.is-in {
+  /* --- Entrada al hacer scroll (B7) ----------------------------------------
+     Nada aparece estático: sube 64px, se desenfoca 12px y aparece en 900ms con
+     la curva de resorte. Solo opacity, transform y filter, que el navegador
+     compone en GPU sin recalcular layout. La activa un IntersectionObserver
+     (Revelar.jsx), nunca un listener de scroll. */
+  .revelar {
+    opacity: 0;
+    transform: translate3d(0, var(--revelar-y, 64px), 0);
+    filter: blur(12px);
+    transition:
+      opacity 900ms cubic-bezier(0.32, 0.72, 0, 1),
+      transform 900ms cubic-bezier(0.32, 0.72, 0, 1),
+      filter 900ms cubic-bezier(0.32, 0.72, 0, 1);
+    transition-delay: var(--revelar-retraso, 0ms);
+  }
+  .revelar.esta-dentro {
     opacity: 1;
     transform: translate3d(0, 0, 0);
-  }
-
-  /* El blur solo lo pagan los bloques que lo piden (mockups y videos). */
-  .silk-reveal-blur {
-    filter: blur(10px);
-    transition:
-      opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-      transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-      filter 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-
-  .silk-reveal-blur.is-in {
     filter: blur(0);
   }
 
-  /* --- <RevealText> ------------------------------------------------------ */
-  /* La palabra sube "desde abajo de la línea": el contenedor recorta, el
-     interior traslada. Sin el overflow se vería aparecer, no entrar. */
-  .silk-word {
-    display: inline-block;
-    overflow: hidden;
-    /* El descendente de la g/j/p se recorta si la caja es exacta. */
-    padding-bottom: 0.12em;
-    margin-bottom: -0.12em;
-    vertical-align: bottom;
+  /* Botón principal: blanco sobre negro, con la presión física de B9. */
+  .boton-principal {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-base font-semibold text-black;
+    transition: transform 300ms cubic-bezier(0.32, 0.72, 0, 1), background-color 300ms cubic-bezier(0.32, 0.72, 0, 1), box-shadow 300ms cubic-bezier(0.32, 0.72, 0, 1);
   }
+  .boton-principal:hover { @apply bg-texto-2; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(55, 182, 255, 0.25); }
+  .boton-principal:active { transform: scale(0.98); transition-duration: 100ms; }
 
-  .silk-word-inner {
-    display: inline-block;
-    transform: translateY(110%);
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  .boton-secundario {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-4 py-2 text-base font-semibold text-white;
+    transition: transform 300ms cubic-bezier(0.32, 0.72, 0, 1), border-color 300ms cubic-bezier(0.32, 0.72, 0, 1), background-color 300ms cubic-bezier(0.32, 0.72, 0, 1);
   }
+  .boton-secundario:hover { @apply border-white/40 bg-white/5; transform: translateY(-2px); }
+  .boton-secundario:active { transform: scale(0.98); transition-duration: 100ms; }
 
-  .silk-word-inner.is-in {
-    transform: translateY(0);
-  }
-
-  /* --- Micro-interacción de botón: relleno que entra desde la izquierda --- */
-  .silk-fill {
-    position: relative;
-    overflow: hidden;
-    isolation: isolate;
-  }
-
-  .silk-fill::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: currentColor;
-    opacity: 0.12;
-    transform: scaleX(0);
-    transform-origin: left center;
-    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-
-  .silk-fill:hover::before,
-  .silk-fill:focus-visible::before {
-    transform: scaleX(1);
-  }
-
-  /* --- Elevación de tarjeta --------------------------------------------- */
-  .silk-lift {
-    transition:
-      transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-      box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-      border-color 0.4s ease;
-  }
-
-  .silk-lift:hover {
-    transform: translateY(-4px);
-  }
-
-  /* --- Anillo del Health Score ------------------------------------------ */
-  /* El dasharray lo escribe React; acá solo se suaviza el salto inicial. */
-  .silk-ring {
-    transition: stroke-dashoffset 0.1s linear;
+  .etiqueta {
+    @apply font-mono text-xs font-medium uppercase tracking-widest text-texto-3;
   }
 }
 
-/* ---------------------------------------------------------------------------
-   Kill-switch de accesibilidad.
-   motion.jsx ya no monta nada cuando el sistema pide menos movimiento, pero
-   esto cubre el hover y el instante entre el primer render y la hidratación:
-   si algo se escapa, se ve quieto, no roto.
-   --------------------------------------------------------------------------- */
+/* Movimiento reducido: todo llega a su estado final sin desplazarse. La página
+   tiene que funcionar entera sin animación (accessible-motion). */
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  .silk-reveal,
-  .silk-reveal.is-in,
-  .silk-reveal-blur,
-  .silk-reveal-blur.is-in {
+  .revelar, .revelar.esta-dentro {
     opacity: 1;
     transform: none;
     filter: none;
     transition: none;
   }
-
-  .silk-word-inner,
-  .silk-word-inner.is-in {
-    transform: none;
-    transition: none;
-  }
-
-  .silk-fill::before,
-  .silk-lift,
-  .silk-ring {
-    transition: none;
-  }
-
-  .silk-lift:hover {
-    transform: none;
-  }
+  .boton-principal, .boton-secundario { transition: background-color 0ms, border-color 0ms; }
+  .boton-principal:hover, .boton-secundario:hover { transform: none; }
 }
+
+/* Texto sobre el 4D: una sombra ancha y suave en vez de una capa degradada
+   (los fondos van planos). Despega la letra de la geometría gris sin
+   oscurecer el video. El degradado del título usa background-clip, que no
+   admite text-shadow, así que ahí la sombra va como filtro. */
+.sombra-texto { text-shadow: 0 2px 24px rgba(0, 0, 0, 0.9), 0 1px 4px rgba(0, 0, 0, 0.8); }
+.sombra-texto .titulo-degradado { text-shadow: none; filter: drop-shadow(0 2px 16px rgba(0, 0, 0, 0.9)); }
+/* El botón blanco ya tiene su contraste: la sombra le ensuciaba la letra. */
+.sombra-texto .boton-principal { text-shadow: none; }

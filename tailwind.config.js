@@ -1,66 +1,59 @@
 /** @type {import('tailwindcss').Config} */
 
-// Paleta real de Syncroniza. Los tres azules salen del isotipo
-// (public/syncroniza-isotipo.png, muestreados pixel a pixel) y el resto son los
-// mismos design tokens que usa la app en producción (web/tailwind.config.js del
-// core), para que la landing y el producto no se vean como dos marcas distintas.
+// Landing oscura de Syncroniza.
+//
+// El fondo y las superficies salen de la paleta cerrada de la skill de landing
+// (#000, #181818, #1F1F1F, #272727, #313131): el 4D es el protagonista y el
+// negro puro es lo único que no compite con sus colores. Los videos se graban
+// con el fondo del visor en #000 para fundirse con la página sin borde.
+//
+// Los azules son los del isotipo (muestreados pixel a pixel en la versión
+// anterior) y los colores de ciclo son los MISMOS que pinta el visor 4D
+// (gantt.ts / ciclos.ts): un chip rojo en la página es el ciclo rojo del video.
 export default {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
     extend: {
       colors: {
-        // Azul de marca — el mismo de la app
-        brand: {
-          DEFAULT: "#2A6CC9",
-          hover: "#235AAD",
-          press: "#1C4A8F",
-          ink: "#1E56A8",
-          soft: "#E8F0FB",
-          border: "#B9D2F0",
+        negro: "#000000",
+        carbon: "#181818",
+        grafito: "#1F1F1F",
+        humo: "#272727",
+        ceniza: "#313131",
+        texto: {
+          DEFAULT: "#FFFFFF",
+          2: "#C8C8C8",
+          3: "#9B9B9B",
+          4: "#6E6E6E",
         },
-        // Las tres caras del isotipo
         iso: {
-          navy: "#20366F", // cara oscura
-          mid: "#0C699D", // cara intermedia
-          sky: "#37B6FF", // cara clara
+          navy: "#20366F",
+          mid: "#0C699D",
+          sky: "#37B6FF",
         },
-        // Superficies
-        canvas: "#EDEFF3",
-        surface: "#FFFFFF",
-        surface2: "#F9FAFB",
-        // Fondo oscuro (hero / footer) — idéntico al nav de la app
-        nav: {
-          bg: "#0E1420",
-          elev: "#171E2B",
-          border: "#1B2230",
-          border2: "#262F3F",
-          text: "#98A2B3",
-          hi: "#E7EAF0",
-          faint: "#5B6472",
-        },
-        // Tipografía
-        ink: {
-          DEFAULT: "#101828",
-          2: "#344054",
-          3: "#475467",
-          muted: "#667085",
-          faint: "#98A2B3",
+        ciclo: {
+          rojo: "#E53E3E",
+          amarillo: "#ECC94B",
+          azul: "#4299E1",
+          verde: "#48BB78",
+          naranjo: "#ED8936",
+          morado: "#9F7AEA",
+          rosado: "#F687B3",
+          turquesa: "#81E6D9",
         },
       },
       fontFamily: {
-        ui: ['"IBM Plex Sans"', "system-ui", "sans-serif"],
-        display: ['"Archivo"', '"IBM Plex Sans"', "sans-serif"],
+        sans: ['"Geist Variable"', "system-ui", "sans-serif"],
+        mono: ['"Geist Mono Variable"', "ui-monospace", "monospace"],
       },
-      borderRadius: {
-        sm: "9px",
-        md: "14px",
-        lg: "16px",
+      transitionTimingFunction: {
+        // La curva de la skill: masa y resorte, no la ease de fábrica.
+        fluido: "cubic-bezier(0.32, 0.72, 0, 1)",
       },
-      boxShadow: {
-        sm: "0 1px 2px rgba(16,24,40,.05)",
-        md: "0 1px 3px rgba(16,24,40,.06)",
-        lg: "0 4px 14px rgba(14,20,32,.24)",
-        glow: "0 8px 30px rgba(42,108,201,.28)",
+      transitionDuration: {
+        800: "800ms",
+        900: "900ms",
+        1200: "1200ms",
       },
     },
   },
