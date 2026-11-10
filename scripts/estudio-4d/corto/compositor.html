@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="fuentes.css" />
+<style>
+  /* Compositor de los cortos: misma letra, colores y curva que la landing.
+     Nada se anima solo: todo depende del cuadro que pide fijarCuadro(n). */
+  html, body { margin: 0; background: #000; width: 1920px; height: 1080px; overflow: hidden; }
+  body { font-family: 'Geist', sans-serif; color: #fff; -webkit-font-smoothing: antialiased; }
+  img.clip { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
+  .capa { position: absolute; opacity: 0; will-change: opacity, transform, filter; }
+  .etiqueta { font-family: 'Geist Mono', monospace; font-size: 20px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #37B6FF; }
+  .gris { color: #9B9B9B; }
+  .degradado { background: linear-gradient(90deg, #fff 0%, #9b9b9b 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .titulo { font-size: 96px; line-height: 1; font-weight: 600; letter-spacing: -0.02em; }
+  .subtitulo { font-size: 60px; line-height: 1.05; font-weight: 600; letter-spacing: -0.02em; }
+  .leyenda { font-size: 48px; line-height: 1.15; font-weight: 500; text-shadow: 0 2px 24px rgba(0,0,0,.9), 0 1px 4px rgba(0,0,0,.8); }
+  .sombra { filter: drop-shadow(0 2px 16px rgba(0,0,0,.9)); }
+  .vidrio { border: 1px solid rgba(255,255,255,.1); background: rgba(0,0,0,.6); backdrop-filter: blur(12px); border-radius: 24px; }
+  .mono { font-family: 'Geist Mono', monospace; }
+  .chip { display: inline-block; width: 36px; height: 16px; border-radius: 999px; margin-left: 10px; transition: none; }
+</style>
+</head>
+<body>
+<img class="clip" id="clip0" alt="" />
+<img class="clip" id="clip1" alt="" />
+<div id="capas"></div>
+<script>
+  // ── utilidades ─────────────────────────────────────────────────────────
+  const limitar = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+  // La curva de la landing, cubic-bezier(0.32, 0.72, 0, 1), resuelta por bisección.
+  function fluido(x) {
+    x = limitar(x);
+    const bz = (t, p1, p2) => 3 * (1 - t) * (1 - t) * t * p1 + 3 * (1 - t) * t * t * p2 + t * t * t;
+    let lo = 0, hi = 1, t = x;
+    for (let i = 0; i < 30; i++) { t = (lo + hi) / 2; if (bz(t, 0.32, 0) < x) lo = t; else hi = t; }
+    return bz(t, 0.72, 1);
+  }
+  const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sept', 'oct', 'nov', 'dic'];
+  const fmtNum = new Intl.NumberFormat('es-CL');
+
+  let G = null;
+  let datosHud = null;
+
+  window.cargarGuion = async (guion) => {
+    G = guion;
+    // Los datos vienen dentro del guion: fetch no puede leer file://.
+    if (G.hud) datosHud = G.hud.datos;
+    const cont = document.getElementById('capas');
+    cont.innerHTML = '';
+    G.capas.forEach((c, i) => {
+      const el = document.createElement('div');
+      el.className = 'capa';
+      el.id = `capa${i}`;
+      Object.assign(el.style, c.estilo || {});
+      el.innerHTML = c.html;
+      cont.appendChild(el);
+    });
+    if (G.hud) {
+      const el = document.createElement('div');
+      el.className = 'capa vidrio';
+      el.id = 'hud';
+      Object.assign(el.style, { left: '64px', right: '64px', bottom: '56px', padding: '24px 36px' });
+      el.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:flex-end">
+          <div style="display:flex;gap:64px">
+            <div><div class="etiqueta gris" style="font-size:16px">Semana del</div><div id="hudFecha" class="mono" style="font-size:36px;margin-top:8px"></div></div>
+            <div><div class="etiqueta gris" style="font-size:16px">Elementos levantados</div><div class="mono" style="font-size:36px;margin-top:8px"><span id="hudN"></span><span style="color:#6E6E6E"> / ${fmtNum.format(datosHud.total)}</span></div></div>
+          </div>
+          <div style="text-align:right"><div class="etiqueta gris" style="font-size:16px">Ciclos de hormigonado</div>
+            <div id="hudChips" style="margin-top:14px">${datosHud.ciclos.map((c) => `<span class="chip" style="background:${c.color}"></span>`).join('')}</div></div>
+        </div>`;
+      cont.appendChild(el);
+    }
+    // Precarga de la tipografía antes del primer cuadro.
+    await document.fonts.ready;
+  };
+
+  // Opacidad/transformación de una capa según su ventana [desde, hasta).
+  function animarCapa(el, f, c) {
+    const entra = c.entra ?? 18, sale = c.sale ?? 14;
+    if (f < c.desde || f >= c.hasta) { el.style.opacity = 0; return; }
+    const a = fluido((f - c.desde) / entra);
+    const b = c.hasta >= G.cuadros ? 1 : fluido((c.hasta - f) / sale);
+    const o = Math.min(a, b);
+    const y = (1 - a) * (c.sube ?? 48);
+    el.style.opacity = o;
+    el.style.transform = `translate3d(0, ${y}px, 0)`;
+    el.style.filter = a < 1 ? `blur(${(1 - a) * 12}px)` : 'none';
+  }
+
+  function cargarImagen(img, src) {
+    if (img.dataset.src === src) return Promise.resolve();
+    img.dataset.src = src;
+    img.src = src;
+    return img.decode().catch(() => {});
+  }
+
+  window.fijarCuadro = async (f) => {
+    // Clips activos en este cuadro (con su fundido de entrada y salida).
+    const activos = G.clips.filter((c) => f >= c.desde && f < c.hasta);
+    const imgs = [document.getElementById('clip0'), document.getElementById('clip1')];
+    const cargas = [];
+    imgs.forEach((img, k) => {
+      const c = activos[k];
+      if (!c) { img.style.opacity = 0; return; }
+      const i = Math.min(c.inicio + (f - c.desde), c.ultimo ?? Infinity);
+      const src = `${c.fuente}/${String(i).padStart(4, '0')}.jpg`;
+      cargas.push(cargarImagen(img, src));
+      const fe = c.fundido ?? 0, fs = c.fundidoSalida ?? fe;
+      const a = fe ? fluido((f - c.desde + 1) / fe) : 1;
+      const b = fs ? fluido((c.hasta - f) / fs) : 1;
+      img.style.opacity = Math.min(a, b);
+      img.style.zIndex = String(k);
+    });
+    G.capas.forEach((c, i) => animarCapa(document.getElementById(`capa${i}`), f, c));
+    if (G.hud) {
+      const el = document.getElementById('hud');
+      animarCapa(el, f, { ...G.hud, sube: 24 });
+      if (f >= G.hud.desde && f < G.hud.hasta) {
+        const k = Math.min(datosHud.dias.length - 1, f - G.hud.desde);
+        const ini = new Date(`${datosHud.inicioPrograma}T12:00:00`);
+        const d = new Date(ini); d.setDate(d.getDate() + datosHud.dias[k]);
+        d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+        document.getElementById('hudFecha').textContent = `${d.getDate()} ${MESES[d.getMonth()]} ${d.getFullYear()}`;
+        document.getElementById('hudN').textContent = fmtNum.format(datosHud.levantados[k]);
+        [...document.getElementById('hudChips').children].forEach((chip, j) => {
+          const enc = k >= datosHud.ciclos[j].cuadro;
+          chip.style.opacity = enc ? 1 : 0.2;
+          chip.style.transform = enc ? 'scale(1)' : 'scale(0.75)';
+        });
+      }
+    }
+    await Promise.all(cargas);
+    await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+  };
+</script>
+</body>
+</html>

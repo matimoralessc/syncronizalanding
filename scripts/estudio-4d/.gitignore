@@ -1,0 +1,16 @@
+# Sesión del navegador (tiene el token de quien inició sesión): jamás al repo.
+perfil/
+node_modules/
+package-lock.json
+# Material de trabajo pesado o derivado.
+cuadros/
+videos/
+cap/
+corto/f/
+corto/salida/
+corto/fuentes.css
+corto/og-fondo.jpg
+# Datos sacados del visor de producción (nombres de tareas de la obra).
+datos-*.json
+perfil-local/
+clips/

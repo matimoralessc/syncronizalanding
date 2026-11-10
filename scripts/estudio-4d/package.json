@@ -1,0 +1,9 @@
+{
+  "name": "estudio-4d",
+  "private": true,
+  "type": "module",
+  "description": "Graba cuadro a cuadro el visor 4D real para los videos de la landing. Ver README.md.",
+  "dependencies": {
+    "playwright": "^1.64.0"
+  }
+}

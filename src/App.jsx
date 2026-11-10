@@ -1,5 +1,5 @@
+import Landing from './landing/Landing.jsx';
 
-import Syncronizalanding from "./SyncronizaLanding2"
 export default function App() {
-  return <Syncronizalanding />;
+  return <Landing />;
 }

@@ -1,0 +1,11 @@
+import { chromium } from 'playwright';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const aqui = path.dirname(fileURLToPath(import.meta.url));
+const b = await chromium.launch({ args: ['--allow-file-access-from-files'] });
+const p = await b.newPage({ viewport: { width: 1200, height: 630 } });
+await p.goto(`file://${path.join(aqui, 'og.html')}`);
+await p.evaluate(() => document.fonts.ready);
+await p.waitForTimeout(300);
+await p.screenshot({ path: process.argv[2] });
+await b.close();
