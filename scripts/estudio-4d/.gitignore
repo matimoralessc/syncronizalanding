@@ -13,4 +13,5 @@ corto/og-fondo.jpg
 # Datos sacados del visor de producción (nombres de tareas de la obra).
 datos-*.json
 perfil-local/
+perfil-co/
 clips/

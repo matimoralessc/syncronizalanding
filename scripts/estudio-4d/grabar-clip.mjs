@@ -13,7 +13,9 @@ import { chromium } from 'playwright';
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { CLIPS } from './clips.mjs';
+// CLIPS=clips-co.mjs graba las tomas de Syncroniza CO (11-nov-2026); por
+// defecto, las del 4D.
+const { CLIPS } = await import(new URL(process.env.CLIPS || './clips.mjs', import.meta.url));
 
 const [, , nombre, ancho = '1600', alto = '900'] = process.argv;
 const clip = CLIPS[nombre];
@@ -28,7 +30,9 @@ await page.evaluate(() => window.dispatchEvent(new Event('resize')));
 await page.waitForTimeout(800);
 
 // ── El cursor: una flecha blanca con sombra y un anillo al hacer clic ──────
-await page.evaluate(() => {
+// En una función: si el guion navega (las tomas de Syncroniza CO), la página
+// nueva no lo trae y hay que volver a ponerlo.
+const ponerCursor = () => page.evaluate(() => {
   document.getElementById('cursor-estudio')?.remove();
   const c = document.createElement('div');
   c.id = 'cursor-estudio';
@@ -43,6 +47,7 @@ await page.evaluate(() => {
   document.head.appendChild(st);
   document.body.appendChild(c);
 });
+await ponerCursor();
 
 const cursor = {
   x: W * 0.7, y: H * 0.7,
@@ -93,6 +98,7 @@ async function rect(blanco) {
 
 // ── Preparar (sin grabar), grabar el guion y armar el video ────────────────
 if (clip.preparar) await clip.preparar({ page, cursor });
+await ponerCursor();
 await cursor.a(clip.cursorInicio?.[0] ?? W * 0.72, clip.cursorInicio?.[1] ?? H * 0.72, 10);
 await page.waitForTimeout(500);
 

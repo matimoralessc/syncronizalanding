@@ -161,9 +161,9 @@ export default function Heroe({ reducido }) {
             antes de construirla.
           </h1>
           <p className="mt-6 max-w-[680px] text-lg text-texto-2">
-            Programación, control y reportabilidad de la obra en una sola plataforma: BIM 4D,
-            Last Planner System, control de hormigón y canal de terreno por WhatsApp, sobre una
-            base de datos única.
+            Programación, avance y costos de la obra en una sola plataforma: Curva S y valor
+            ganado, control de costos integrado con iConstruye, BIM 4D, Last Planner System y canal
+            de terreno por WhatsApp, sobre una base de datos única.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <a href="#contacto" className="boton-principal">

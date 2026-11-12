@@ -10,9 +10,9 @@ import { useEffect, useState } from 'react';
 // que sumarle trabajo por cada pixel.
 
 export const ENLACES = [
+  { id: 'control', texto: 'Control de obra' },
   { id: 'prueba', texto: 'Simulación 4D' },
-  { id: 'herramientas', texto: 'Herramientas' },
-  { id: 'control', texto: 'La suite' },
+  { id: 'herramientas', texto: 'Herramientas 4D' },
   { id: 'agente', texto: 'Agente' },
   { id: 'terreno', texto: 'Terreno' },
 ];

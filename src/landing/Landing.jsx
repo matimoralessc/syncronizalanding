@@ -33,9 +33,11 @@ export default function Landing() {
       <main id="contenido" tabIndex={-1} className="outline-none">
         <Heroe reducido={reducido} />
         <Prueba />
+        {/* Syncroniza CO antes del 4D (11-nov-2026): curvas S, costos y
+            variaciones son lo que más pesa al decidir. */}
+        <ControlObra />
         <Prueba4D />
         <Herramientas4D />
-        <ControlObra />
         <Agente />
         <Terreno />
         <FraseCentral />
