@@ -5,9 +5,9 @@ import VideoBucle from './VideoBucle.jsx';
 
 // Syncroniza CO (11-nov-2026, Matías: «hoy solo hay enfoque en 4D y un poco del
 // agente, pero lo realmente importante, curvas S, datos de variaciones y demás
-// no lo tenemos»). Cada pestaña es un registro de la plataforma con la obra
-// Panorámica en ejecución (scripts/estudio-4d/clips-co.mjs), como las
-// herramientas del 4D. «Salud de obra» sigue siendo la animación de la landing
+// no lo tenemos»). Cada pestaña es un registro de la plataforma sobre una obra
+// en ejecución (scripts/estudio-4d/clips-co.mjs), como las herramientas del 4D,
+// con la obra y las personas anónimas en pantalla («Obra Demo»). «Salud de obra» sigue siendo la animación de la landing
 // de Pedro: la app móvil no se graba desde acá. El −12 % de hormigón también
 // viene de su landing.
 const MODULOS = [
@@ -85,8 +85,8 @@ export default function ControlObra() {
           Avance, costos y variaciones, con los datos de la obra.
         </Revelar>
         <Revelar as="p" retraso={140} className="mt-5 max-w-2xl text-lg leading-relaxed text-white/60">
-          Registros de la plataforma con la obra Panorámica en ejecución. La información de terreno, del programa y
-          de iConstruye llega a los mismos indicadores, sin traspaso manual de datos.
+          Registros de la plataforma sobre una obra en ejecución. La información de terreno, del programa y de
+          iConstruye llega a los mismos indicadores, sin traspaso manual de datos.
         </Revelar>
 
         {/* Pestañas: en el teléfono se deslizan de lado */}
@@ -125,7 +125,7 @@ export default function ControlObra() {
                   poster={`/co/${m.video}.webp`}
                   ancho={1280}
                   alto={720}
-                  etiqueta={`${m.pestaña} en Syncroniza CO, con la obra Panorámica`}
+                  etiqueta={`${m.pestaña} en Syncroniza CO, sobre una obra en ejecución`}
                 />
               </div>
             ) : (

@@ -5,7 +5,55 @@
 const BASE = 'http://localhost:3010/obras/panoramica-constructora-inspira';
 const espera = (page, ms) => page.waitForTimeout(ms);
 
+// Lo que se ve en pantalla va anónimo (11-nov-2026, Matías: «quitarle el nombre
+// y mostrar como obra demo»): la obra y la constructora pasan a «Obra Demo» y
+// las personas a nombres genéricos. Se reemplaza en el DOM mientras se graba;
+// los datos son los de la obra, sin tocar.
+const ANONIMO = [
+  ['Panoramica - Constructora Inspira', 'Obra Demo'],
+  ['Panorámica - Constructora Inspira', 'Obra Demo'],
+  ['Constructora Inspira', 'Constructora Demo'],
+  ['PROYECTO PANORAMICA', 'PROYECTO DEMO'],
+  ['Panoramica', 'Obra Demo'],
+  ['Panorámica', 'Obra Demo'],
+  ['Inspira', 'Demo'],
+  ['Alamiro García', 'Juan Pérez'],
+  ['Alamiro Garcia', 'Juan Pérez'],
+  ['Claudio Reyes', 'Andrés Rojas'],
+  ['Damian Reyes', 'Felipe Muñoz'],
+  ['Omar Gonzalez', 'Rodrigo Díaz'],
+  ['Pedro Barahona', 'Pablo Castro'],
+  ['Matías', 'Carla Soto'],
+];
+let anonimoPuesto = false;
+async function anonimizar(page) {
+  if (anonimoPuesto) return;
+  anonimoPuesto = true;
+  await page.addInitScript((pares) => {
+    const cambiar = (nodo) => {
+      const w = document.createTreeWalker(nodo, NodeFilter.SHOW_TEXT);
+      for (let t = w.nextNode(); t; t = w.nextNode()) {
+        let v = t.nodeValue;
+        for (const [a, b] of pares) if (v.includes(a)) v = v.split(a).join(b);
+        if (v !== t.nodeValue) t.nodeValue = v;
+      }
+    };
+    const iniciar = () => {
+      cambiar(document.body);
+      new MutationObserver((ms) => {
+        for (const m of ms) {
+          if (m.type === 'characterData') cambiar(m.target.parentNode || document.body);
+          m.addedNodes.forEach((n) => (n.nodeType === 3 ? cambiar(n.parentNode) : n.nodeType === 1 && cambiar(n)));
+        }
+      }).observe(document.body, { childList: true, subtree: true, characterData: true });
+    };
+    if (document.body) iniciar();
+    else document.addEventListener('DOMContentLoaded', iniciar);
+  }, ANONIMO);
+}
+
 async function ir(page, ruta, ms = 2500) {
+  await anonimizar(page);
   await page.goto(BASE + ruta, { waitUntil: 'networkidle' }).catch(() => {});
   // El botón del agente flota sobre los gráficos y no es parte de lo que se muestra.
   await page.addStyleTag({ content: '.agente-anclaje { display: none !important; }' }).catch(() => {});
@@ -130,13 +178,19 @@ export const CLIPS = {
       await cursor.hacia('texto=Cumplimiento de restricciones', 900, 0, 60);
       await espera(page, 1000);
       await cursor.clic('texto=Restricciones', 900);
-      await espera(page, 1800);
+      await espera(page, 1200);
+      // La pestaña recuerda la última vista: se vuelve al tablero.
+      await cursor.clic('texto=Tablero semanal', 700);
+      await espera(page, 1200);
       await cursor.hacia('contiene=Terminar el picado', 1000);
       await espera(page, 1200);
       await cursor.hacia('contiene=falta impermeabilizacion', 900);
       await espera(page, 1000);
       await cursor.clic('texto=Indicadores', 900);
       await espera(page, 1800);
+    },
+    async terminar({ page }) {
+      await page.evaluate(() => [...document.querySelectorAll('button')].find((b) => b.offsetParent && b.textContent.trim() === 'Tablero semanal')?.click());
     },
   },
 
