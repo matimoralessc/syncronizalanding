@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 
 export const ENLACES = [
   { id: 'control', texto: 'Control de obra' },
-  { id: 'prueba', texto: 'Simulación 4D' },
+  { id: 'last-planner-demo', texto: 'Last Planner' },
   { id: 'herramientas', texto: 'Herramientas 4D' },
   { id: 'agente', texto: 'Agente' },
   { id: 'terreno', texto: 'Terreno' },

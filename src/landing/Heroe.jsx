@@ -170,7 +170,7 @@ export default function Heroe({ reducido }) {
               Solicitar demostración
               <ArrowRight size={18} weight="bold" aria-hidden="true" />
             </a>
-            <a href="#prueba" className="boton-secundario">Ver simulación 4D</a>
+            <a href="#last-planner-demo" className="boton-secundario">Ver el Last Planner</a>
           </div>
           {/* La pista se apaga apenas el visitante empieza a bajar. */}
           {!reducido && (

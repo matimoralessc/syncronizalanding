@@ -113,3 +113,13 @@
 /* Filas que se deslizan de lado sin barra visible (preguntas del agente, pestañas). */
 .sin-barra { scrollbar-width: none; }
 .sin-barra::-webkit-scrollbar { display: none; }
+
+/* Subtítulos de los tutoriales (Tutoriales.jsx): van sin audio, así que se
+   tienen que leer bien sobre la interfaz clara de la plataforma. */
+.video-tutorial::cue {
+  background: rgba(0, 0, 0, 0.78);
+  color: #fff;
+  font-family: "Geist Variable", system-ui, sans-serif;
+  font-size: 1.05em;
+  line-height: 1.35;
+}

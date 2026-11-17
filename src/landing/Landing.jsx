@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import Nav from './Nav.jsx';
 import Heroe from './Heroe.jsx';
-import Prueba4D from './Prueba4D.jsx';
+import PruebaLastPlanner from './PruebaLastPlanner.jsx';
 import Herramientas4D from './Herramientas4D.jsx';
 import ControlObra from './ControlObra.jsx';
 import Terreno from './Terreno.jsx';
 import Agente from './Agente.jsx';
 import PorQue from './PorQue.jsx';
+import Tutoriales from './Tutoriales.jsx';
 import { Prueba, FraseCentral, ComoFunciona, Contacto, Pie } from './Secciones.jsx';
 
 // La landing (9-nov-2026, segunda vuelta): «el scroll es muy largo, hay que
@@ -36,13 +37,17 @@ export default function Landing() {
         {/* Syncroniza CO antes del 4D (11-nov-2026): curvas S, costos y
             variaciones son lo que más pesa al decidir. */}
         <ControlObra />
-        <Prueba4D />
+        {/* El Last Planner que se usa en vez de la simulación 4D (16-nov-2026):
+            el 4D ya está en el héroe y en sus herramientas. */}
+        <PruebaLastPlanner />
         <Herramientas4D />
         <Agente />
         <Terreno />
         <FraseCentral />
         <PorQue />
         <ComoFunciona />
+        {/* Después de la implementación, la capacitación que queda en la plataforma. */}
+        <Tutoriales />
         <Contacto />
       </main>
       <Pie />

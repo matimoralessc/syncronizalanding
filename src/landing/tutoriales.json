@@ -1,0 +1,170 @@
+[
+ {
+  "codigo": "AV-01",
+  "modulo": "Avance y Curva S",
+  "titulo": "Leer la Curva S",
+  "segundos": 23
+ },
+ {
+  "codigo": "AV-02",
+  "modulo": "Avance y Curva S",
+  "titulo": "Entender el SPI",
+  "segundos": 24
+ },
+ {
+  "codigo": "AV-03",
+  "modulo": "Avance y Curva S",
+  "titulo": "La curva de cada partida",
+  "segundos": 24
+ },
+ {
+  "codigo": "AV-04",
+  "modulo": "Avance y Curva S",
+  "titulo": "Bajar al detalle",
+  "segundos": 21
+ },
+ {
+  "codigo": "AV-05",
+  "modulo": "Avance y Curva S",
+  "titulo": "Tomar el avance de la semana",
+  "segundos": 25
+ },
+ {
+  "codigo": "CO-01",
+  "modulo": "Costos",
+  "titulo": "Leer el Panel Central",
+  "segundos": 23
+ },
+ {
+  "codigo": "CO-02",
+  "modulo": "Costos",
+  "titulo": "Leer una hoja de control",
+  "segundos": 26
+ },
+ {
+  "codigo": "CO-03",
+  "modulo": "Costos",
+  "titulo": "Agregar una observación",
+  "segundos": 22
+ },
+ {
+  "codigo": "CO-04",
+  "modulo": "Costos",
+  "titulo": "Marcar una proyección",
+  "segundos": 24
+ },
+ {
+  "codigo": "CO-05",
+  "modulo": "Costos",
+  "titulo": "Traspasar a otra hoja",
+  "segundos": 25
+ },
+ {
+  "codigo": "CO-06",
+  "modulo": "Costos",
+  "titulo": "Registrar un estado de pago",
+  "segundos": 19
+ },
+ {
+  "codigo": "CO-07",
+  "modulo": "Costos",
+  "titulo": "Pedir un cambio de máximo",
+  "segundos": 22
+ },
+ {
+  "codigo": "CO-08",
+  "modulo": "Costos",
+  "titulo": "Aprobar un cambio de máximo",
+  "segundos": 22
+ },
+ {
+  "codigo": "CO-09",
+  "modulo": "Costos",
+  "titulo": "Maestro de proveedores",
+  "segundos": 23
+ },
+ {
+  "codigo": "CO-10",
+  "modulo": "Costos",
+  "titulo": "Registrar la mano de obra",
+  "segundos": 20
+ },
+ {
+  "codigo": "HG-01",
+  "modulo": "Hormigón",
+  "titulo": "Cargar una guía desde WhatsApp",
+  "segundos": 42
+ },
+ {
+  "codigo": "HG-02",
+  "modulo": "Hormigón",
+  "titulo": "Encontrar una guía",
+  "segundos": 24
+ },
+ {
+  "codigo": "HG-03",
+  "modulo": "Hormigón",
+  "titulo": "Completar los datos de una guía",
+  "segundos": 25
+ },
+ {
+  "codigo": "HG-04",
+  "modulo": "Hormigón",
+  "titulo": "Validar una guía pendiente",
+  "segundos": 22
+ },
+ {
+  "codigo": "HG-05",
+  "modulo": "Hormigón",
+  "titulo": "Corregir una lectura rechazada",
+  "segundos": 23
+ },
+ {
+  "codigo": "HG-06",
+  "modulo": "Hormigón",
+  "titulo": "Filtrar y descargar guías",
+  "segundos": 23
+ },
+ {
+  "codigo": "LP-01",
+  "modulo": "Last Planner",
+  "titulo": "Registrar una restricción",
+  "segundos": 40
+ },
+ {
+  "codigo": "LP-02",
+  "modulo": "Last Planner",
+  "titulo": "Liberar una restricción",
+  "segundos": 19
+ },
+ {
+  "codigo": "LP-03",
+  "modulo": "Last Planner",
+  "titulo": "Reprogramar una restricción",
+  "segundos": 21
+ },
+ {
+  "codigo": "LP-04",
+  "modulo": "Last Planner",
+  "titulo": "Leer los indicadores",
+  "segundos": 23
+ },
+ {
+  "codigo": "LP-05",
+  "modulo": "Last Planner",
+  "titulo": "Armar el Look Ahead en el 4D",
+  "segundos": 47
+ },
+ {
+  "codigo": "PWA-01",
+  "modulo": "App de terreno",
+  "titulo": "Instalar Syncroniza en Android",
+  "segundos": 31
+ },
+ {
+  "codigo": "PWA-02",
+  "modulo": "App de terreno",
+  "titulo": "Instalar Syncroniza en iPhone",
+  "segundos": 32
+ }
+]
